@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../home.dart';
-import './change_password.dart';
 
 import '../../blocs/auth/auth_bloc.dart';
 import '../../models/enums.dart';
@@ -146,12 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => ChangePasswordScreen(),
-                            ),
-                          );
                         },
                         child: const Text("Forgot Password?"),
                       ),
