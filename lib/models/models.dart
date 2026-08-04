@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 class Customer {
   final int id;
   final String name;
@@ -256,6 +258,7 @@ class Dashboard {
   final int total_unpaid_invoices;
   final double total_paid_amount;
   final double total_amount_due;
+  final String name;
   final List<DashboardBatch> recent_batches;
 
   Dashboard({
@@ -266,6 +269,7 @@ class Dashboard {
     required this.total_paid_amount,
     required this.total_unpaid_invoices,
     required this.total_amount_due,
+    required this.name,
     this.recent_batches = const [],
   });
 
@@ -278,6 +282,7 @@ class Dashboard {
       total_paid_amount: (json['total_paid_amount'] as num).toDouble(),
       total_unpaid_invoices: json['total_unpaid_invoices'],
       total_amount_due: (json['total_amount_due'] as num).toDouble(),
+      name: json['name'],
       recent_batches: (json['recent_batches'] as List? ?? [])
           .map((e) => DashboardBatch.fromJson(e))
           .toList(),

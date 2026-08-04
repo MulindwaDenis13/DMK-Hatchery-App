@@ -71,19 +71,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   foregroundColor: Colors.white,
                   flexibleSpace: FlexibleSpaceBar(
                     titlePadding: const EdgeInsets.only(left: 16, bottom: 16),
-                    title: const Column(
+                    title: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Good Morning 👋",
+                          "Welcome Back",
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.white,
                           ),
                         ),
                         Text(
-                          "Denis Mulindwa",
+                          dashboard.name,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
