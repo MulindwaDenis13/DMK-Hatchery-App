@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:poultry_connect_mobile/models/enums.dart';
-import 'package:poultry_connect_mobile/screens/auth/login.dart';
 
+import './auth/login.dart';
+import '../models/enums.dart';
 import '../../blocs/auth/auth_bloc.dart';
 
 class ProfileScreen extends StatefulWidget {
