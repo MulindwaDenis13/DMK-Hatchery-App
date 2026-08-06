@@ -317,9 +317,10 @@ class _BatchesScreenState extends State<BatchesScreen> {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+            color: Colors.black.withOpacity(0.12),
+            blurRadius: 30,
+            spreadRadius: 0,
+            offset: const Offset(0, 12),
           ),
         ],
       ),
