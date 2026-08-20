@@ -13,7 +13,7 @@ import '../services/local_storage_service.dart';
 /// - Handles common API errors.
 class ApiClient {
   /// Base URL for all customer-related API endpoints.
-  static const String baseUrl = "http://192.168.1.7:8000/api/customer/";
+  static const String baseUrl = "http://192.168.1.9:8000/api/customer/";
 
   /// Local storage service used to retrieve the saved authentication token.
   final LocalStorageService localStorageService;

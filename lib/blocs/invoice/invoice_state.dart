@@ -3,16 +3,24 @@ part of 'invoice_bloc.dart';
 class InvoiceState extends Equatable {
   final String? error;
   final String? message;
+
   final AppState status;
-  final Pagination<Invoice>? data;
+
+  /// Invoice list
+  final Pagination<InvoiceList>? data;
+
+  /// Single invoice
+  final Invoice? invoice;
+
   final bool hasMore;
   final int currentPage;
 
   const InvoiceState({
     this.error,
     this.message,
-    this.data,
     this.status = AppState.initial,
+    this.data,
+    this.invoice,
     this.hasMore = false,
     this.currentPage = 0,
   });
@@ -20,22 +28,37 @@ class InvoiceState extends Equatable {
   InvoiceState copyWith({
     String? error,
     String? message,
-    Pagination<Invoice>? data,
+    Pagination<InvoiceList>? data,
+    Invoice? invoice,
     AppState? status,
     bool? hasMore,
     int? currentPage,
     bool clearError = false,
     bool clearMessage = false,
+    bool clearData = false,
+    bool clearInvoice = false,
   }) {
     return InvoiceState(
       error: clearError ? null : error ?? this.error,
       message: clearMessage ? null : message ?? this.message,
-      data: data ?? this.data,
+
+      data: clearData
+          ? null
+          : data ?? this.data,
+
+      invoice: clearInvoice
+          ? null
+          : invoice ?? this.invoice,
+
       status: status ?? this.status,
       hasMore: hasMore ?? this.hasMore,
       currentPage: currentPage ?? this.currentPage,
     );
   }
+
+  // ============================================================
+  // INITIAL
+  // ============================================================
 
   factory InvoiceState.initial() {
     return const InvoiceState(
@@ -45,6 +68,10 @@ class InvoiceState extends Equatable {
     );
   }
 
+  // ============================================================
+  // LIST LOADING
+  // ============================================================
+
   InvoiceState loading() {
     return copyWith(
       status: AppState.loading,
@@ -53,32 +80,68 @@ class InvoiceState extends Equatable {
     );
   }
 
+  // ============================================================
+  // SINGLE INVOICE LOADING
+  // ============================================================
+
+  InvoiceState invoiceLoading() {
+    return copyWith(
+      status: AppState.loading,
+      clearError: true,
+      clearMessage: true,
+      clearInvoice: true,
+    );
+  }
+
+  // ============================================================
+  // LIST SUCCESS
+  // ============================================================
+
   InvoiceState success({
-    Pagination<Invoice>? data,
+    required Pagination<InvoiceList> data,
     String? message,
-    bool hasMore = false,
-    int currentPage = 0,
+    bool? hasMore,
+    int? currentPage,
   }) {
     return copyWith(
       status: AppState.success,
       data: data,
       message: message,
-      hasMore: hasMore,
-      currentPage: currentPage,
+      hasMore: hasMore ?? data.hasMore,
+      currentPage: currentPage ?? data.currentPage,
       clearError: true,
     );
   }
 
-  InvoiceState loadMoreSuccess({
-    Pagination<Invoice>? data,
-    String? message,
-    bool hasMore = false,
-    int currentPage = 0,
-  }) {
-    Pagination<Invoice>? mergedData;
+  // ============================================================
+  // SINGLE INVOICE SUCCESS
+  // ============================================================
 
-    if (data != null && this.data != null) {
-      mergedData = Pagination<Invoice>(
+  InvoiceState invoiceSuccess({
+    required Invoice invoice,
+    String? message,
+  }) {
+    return copyWith(
+      status: AppState.success,
+      invoice: invoice,
+      message: message,
+      clearError: true,
+      clearData: true,
+    );
+  }
+
+  // ============================================================
+  // LOAD MORE
+  // ============================================================
+
+  InvoiceState loadMoreSuccess({
+    required Pagination<InvoiceList> data,
+    String? message,
+  }) {
+    Pagination<InvoiceList> mergedData;
+
+    if (this.data != null) {
+      mergedData = Pagination<InvoiceList>(
         currentPage: data.currentPage,
         lastPage: data.lastPage,
         perPage: data.perPage,
@@ -90,17 +153,22 @@ class InvoiceState extends Equatable {
         ],
       );
     } else {
-      mergedData = data ?? this.data;
+      mergedData = data;
     }
 
-    return InvoiceState(
+    return copyWith(
       status: AppState.success,
       data: mergedData,
       message: message,
-      hasMore: hasMore,
-      currentPage: currentPage,
+      hasMore: data.hasMore,
+      currentPage: data.currentPage,
+      clearError: true,
     );
   }
+
+  // ============================================================
+  // FAILURE
+  // ============================================================
 
   InvoiceState failure({
     required String error,
@@ -112,20 +180,36 @@ class InvoiceState extends Equatable {
     );
   }
 
-  List<Invoice> get invoices => data?.data ?? <Invoice>[];
+  // ============================================================
+  // GETTERS
+  // ============================================================
+
+  List<InvoiceList> get invoices => data?.data ?? <InvoiceList>[];
+  
 
   bool get isLoading => status == AppState.loading;
+  
 
   bool get isFirstLoad => status == AppState.loading && currentPage == 0;
+  
 
   bool get isEmpty => invoices.isEmpty;
+  
+
+  bool get hasInvoice => invoice != null;
+  
+
+  bool get isInvoiceLoading {
+    return status == AppState.loading && invoice == null;
+  }
 
   @override
   List<Object?> get props => [
         error,
         message,
-        data,
         status,
+        data,
+        invoice,
         hasMore,
         currentPage,
       ];

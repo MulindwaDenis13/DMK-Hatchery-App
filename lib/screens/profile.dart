@@ -265,9 +265,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        _buildStatItem('Total Batches', '8'),
-                        _buildStatItem('Total Chicks', '1,245'),
-                        _buildStatItem('Orders', '12'),
+                        _buildStatItem(
+                          'Total Batches',
+                          user.batchCount.toString(),
+                        ),
+                        _buildStatItem(
+                          'Total Eggs',
+                          user.totalEggs.toString(),
+                        ),
+                        _buildStatItem(
+                          'Eggs Hatch',
+                          user.totalHatched.toString(),
+                        ),
                       ],
                     ),
                   ),

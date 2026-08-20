@@ -286,7 +286,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
     );
   }
 
-  Widget _buildInvoiceCard(Invoice invoice) {
+  Widget _buildInvoiceCard(InvoiceList invoice) {
     final isPaid = invoice.status.toLowerCase() == 'paid';
     final balance = invoice.balance;
     final totalAmount = invoice.totalAmount;
@@ -312,7 +312,7 @@ class _InvoicesScreenState extends State<InvoicesScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => InvoiceScreen(invoice: invoice),
+                builder: (context) => InvoiceScreen(invoiceId: invoice.id),
               ),
             );
           },

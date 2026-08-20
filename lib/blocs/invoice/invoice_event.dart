@@ -72,3 +72,14 @@ final class InvoiceLoadFailure extends InvoiceEvent {
   @override
   List<Object> get props => [error];
 }
+
+class InvoiceLoadSingleRequested extends InvoiceEvent {
+  final int invoiceId;
+
+  InvoiceLoadSingleRequested({
+    required this.invoiceId,
+  });
+
+  @override
+  List<Object> get props => [invoiceId];
+}

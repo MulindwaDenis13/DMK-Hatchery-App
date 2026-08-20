@@ -103,8 +103,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       _buildChartsRow(dashboard),
                       const SizedBox(height: 16),
                       _buildRecentActivity(dashboard),
-                      const SizedBox(height: 16),
-                      _buildQuickActions(),
                     ]),
                   ),
                 )
@@ -544,124 +542,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildQuickActions() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.08),
-            blurRadius: 8,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Quick Actions',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey.shade900,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              _buildActionButton(
-                icon: Icons.add_box_outlined,
-                label: 'New Batch',
-                color: Colors.green.shade600,
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Create new batch feature'),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(width: 12),
-              _buildActionButton(
-                icon: Icons.receipt_long_outlined,
-                label: 'Invoices',
-                color: Colors.blue.shade600,
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('View invoices feature'),
-                      backgroundColor: Colors.blue,
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(width: 12),
-              _buildActionButton(
-                icon: Icons.payment_outlined,
-                label: 'Payments',
-                color: Colors.orange.shade600,
-                onTap: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Make payment feature'),
-                      backgroundColor: Colors.orange,
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildActionButton({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.08),
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: color.withOpacity(0.2),
-              width: 1,
-            ),
-          ),
-          child: Column(
-            children: [
-              Icon(
-                icon,
-                color: color,
-                size: 28,
-              ),
-              const SizedBox(height: 4),
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w600,
-                  color: color,
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

@@ -432,8 +432,8 @@ class _BatchesScreenState extends State<BatchesScreen> {
                       valueColor: Colors.green.shade600,
                     ),
                     StatCard(
-                      label: 'Spoiled',
-                      value: batch.spoiledCount.toString(),
+                      label: 'Clear',
+                      value: batch.clearCount.toString(),
                       valueColor: Colors.red.shade600,
                     ),
                   ],
@@ -624,7 +624,7 @@ class _BatchesScreenState extends State<BatchesScreen> {
               Icon(Icons.cancel, size: 14, color: Colors.red.shade500),
               const SizedBox(width: 4),
               Text(
-                'Spoiled: +${activity.spoiledCount}',
+                'UnHatched: +${activity.unHatchedCount}',
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey.shade700,
@@ -693,7 +693,7 @@ class _BatchesScreenState extends State<BatchesScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => InvoiceScreen(invoice: invoice),
+          builder: (context) => InvoiceScreen(invoiceId: invoice.id),
         ),
       );
     }
